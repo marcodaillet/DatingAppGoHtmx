@@ -50,4 +50,18 @@ func registerHandler(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{"message": "Registration successful. Please check your email for confirmation."})
+
+	recipient := email // Replace with user's email address
+	subject := "Confirm Your Registration"
+	body := "Please click the following link to confirm your registration: <a href='127.0.0.1:8080/confirm'>Confirm</a>"
+
+	SendEmail(recipient, subject, body)
+	// if err != nil {
+	// 	c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to send registration confirmation email"})
+	// 	return
+	// }
+
+	// Registration successful
+	c.JSON(http.StatusOK, gin.H{"message": "Registration successful. Please check your email for confirmation."})
+
 }
