@@ -2,6 +2,8 @@ package main
 
 import (
     "golang.org/x/crypto/bcrypt"
+    "crypto/rand"
+    "fmt"
 )
 
 // hashPassword hashes the given password using bcrypt
@@ -11,4 +13,10 @@ func hashPassword(password string) (string, error) {
         return "", err
     }
     return string(hashedPassword), nil
+}
+
+func tokenGenerator() string {
+	b := make([]byte, 4)
+	rand.Read(b)
+	return fmt.Sprintf("%x", b)
 }
