@@ -60,7 +60,7 @@ func registerHandler(c *gin.Context) {
 	// Send registration confirmation email with token link
 	recipient := email
 	subject := "Confirm Your Registration"
-	body := fmt.Sprintf("Please click the following link to confirm your registration: <a href='localhost:8080/confirm?token=%s'>Confirm</a>", confirmationToken)
+	body := fmt.Sprintf("Please click the following link to confirm your Tinder registration: <strong>localhost:8080/confirm?token=%s</strong>", confirmationToken)
 	SendEmail(recipient, subject, body)
 
 	// Registration successful

@@ -1,1 +1,3 @@
-1 - Validate input not only on the front because of HTTP requests straight to the server
+Make the link clickable in the mail
+Add some styling to the confirmation page
+Put everthing in different packages to manage things in a clean way

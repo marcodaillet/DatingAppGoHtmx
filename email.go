@@ -2,7 +2,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/smtp"
 	"os"
@@ -10,7 +9,6 @@ import (
 
 // SendEmail sends an email using the specified SMTP server
 func SendEmail(recipient, subject, body string) error {
-	fmt.Println(recipient)
 	// Read SMTP configuration from environment variables
 	smtpServer := os.Getenv("SMTP_SERVER")
 	smtpPort := os.Getenv("SMTP_PORT")
