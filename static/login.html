@@ -98,19 +98,27 @@
             })
             .then(response => {
                 if (response.ok) {
-                    // Redirect to dashboard or homepage upon successful login
                     window.location.href = '/dashboard'; // Change '/dashboard' to the desired dashboard URL
                 } else {
-                    // Handle login error
                     alert('Invalid username or password');
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                // Handle network error
                 alert('An error occurred. Please try again later.');
             });
         });
+    </script>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const confirmed = urlParams.get('confirmed');
+        
+        if (confirmed === 'true') {
+            alert("Thanks for confirming your account, you can now log in.");
+        } else if (confirmed === 'false') {
+            const error = urlParams.get('error');
+            alert("Error: " + error);
+        }
     </script>
 </body>
 </html>

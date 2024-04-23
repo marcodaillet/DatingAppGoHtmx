@@ -1,5 +1,5 @@
 build:
-	go build -o bin/tinder *.go
+	go build -o bin/tinder src/*.go
 
 clean:
 	rm -r bin
