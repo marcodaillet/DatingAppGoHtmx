@@ -20,7 +20,7 @@
 
         form {
             display: inline-block;
-            text-align: left;
+            text-align: center;
             border: 1px solid #ccc;
             padding: 20px;
             border-radius: 8px;
@@ -52,10 +52,28 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            font: 1em sans-serif;
         }
 
         button:hover {
             background-color: #0056b3;
+        }
+
+        a {
+            color: #007bff;
+        }
+
+        a:link { 
+           text-decoration: none; 
+        } 
+        a:visited { 
+            text-decoration: none; 
+        } 
+        a:hover { 
+            text-decoration: none; 
+        } 
+        a:active { 
+            text-decoration: none; 
         }
 
         #message {
@@ -94,7 +112,28 @@
         </div>
         <button type="submit">Register</button>
     </form>
-    <div id="error"></div>
-    <div id="message"></div>
-</body>
+    <p>Already have an account ? <a href="/login">Login here</a></p>
+
+    <script>
+        fetch('/confirm?token=' + token)
+        .then(response => response.json())
+        .then(data => {
+            if (data.message) {
+                // Display an alert with the message from the backend
+                alert(data.message);
+            }
+            
+            // Check if the registration was confirmed successfully
+            if (data.success) {
+                document.getElementById('message').textContent = "Your registration has been confirmed. You can now login.";
+            } else {
+                document.getElementById('message').textContent = "Failed to confirm registration. Please try again.";
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            document.getElementById('message').textContent = "An error occurred. Please try again later.";
+        });
+    </script>
+    </body>
 </html>
