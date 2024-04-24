@@ -11,10 +11,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func showRegistrationPage(c *gin.Context) {
-	c.File("./static/register.html")
-}
-
 func registerHandler(c *gin.Context) {
 	// Validate input fields
 	username := strings.TrimSpace(c.PostForm("username"))

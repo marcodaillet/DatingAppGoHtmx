@@ -1,68 +1,61 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../style/style.css">
-    <title>Login</title>
-</head>
-<body>
-    <h1>Login</h1>
-    <form id="loginForm">
-        <div>
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required><br>
-        </div>
-        <div>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required><br>
-        </div>
-        <div>
-            <button type="submit">Login</button>
-        </div>
-    </form>
-    <p>Don't have an account? <a href="/register">Register here</a></p>
+{{ define "login_content" }}
 
-    <script>
-        // Handle form submission
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const formData = new FormData(this);
-            const formDataJson = {};
-            formData.forEach((value, key) => {
-                formDataJson[key] = value;
-            });
+<h1>Login</h1>
+<form id="loginForm">
+    <div>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br>
+    </div>
+    <div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br>
+    </div>
+    <div>
+        <button type="submit">Login</button>
+    </div>
+</form>
+<p>Don't have an account? <a href="/register">Register here</a></p>
 
-            fetch('/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formDataJson)
-            })
-            .then(response => {
-                if (response.ok) {
-                    window.location.href = '/dashboard'; // Change '/dashboard' to the desired dashboard URL
-                } else {
-                    alert('Invalid username or password');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred. Please try again later.');
-            });
+<script>
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const formData = new FormData(this);
+        const formDataJson = {};
+        formData.forEach((value, key) => {
+            formDataJson[key] = value;
         });
-    </script>
-    <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const confirmed = urlParams.get('confirmed');
-        
-        if (confirmed === 'true') {
-            alert("Thanks for confirming your account, you can now log in.");
-        } else if (confirmed === 'false') {
-            const error = urlParams.get('error');
-            alert("Error: " + error);
-        }
-    </script>
-</body>
-</html>
+
+        fetch('/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formDataJson)
+        })
+        .then(response => {
+            if (response.ok) {
+                window.location.href = '/dashboard'; // Change '/dashboard' to the desired dashboard URL
+            } else {
+                alert('Invalid username or password');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred. Please try again later.');
+        });
+    });
+</script>
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const confirmed = urlParams.get('confirmed');
+    
+    if (confirmed === 'true') {
+        alert("Thanks for confirming your account, you can now log in.");
+    } else if (confirmed === 'false') {
+        const error = urlParams.get('error');
+        alert("Error: " + error);
+    }
+</script>
+
+{{ end }}
+{{ template "base" . }}

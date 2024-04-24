@@ -1,59 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Registration</title>
-    <script src="https://unpkg.com/htmx.org@1.6.1/dist/htmx.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="style/style.css" />
-</head>
-<body>
-    <h1>User Registration</h1>
-    <form id="registerForm" hx-post="/register" hx-target="#message">
-        <div>
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
-        </div>
-        <div>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-        </div>
-        <div>
-            <label for="firstName">First Name:</label>
-            <input type="text" id="firstName" name="firstName" required>
-        </div>
-        <div>
-            <label for="lastName">Last Name:</label>
-            <input type="text" id="lastName" name="lastName" required>
-        </div>
-        <div>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-        </div>
-        <button type="submit">Register</button>
-    </form>
-    <p>Already have an account ? <a href="/login">Login here</a></p>
+{{ define "register_content" }}
 
-    <script>
-        fetch('/confirm?token=' + token)
-        .then(response => response.json())
-        .then(data => {
-            if (data.message) {
-                // Display an alert with the message from the backend
-                alert(data.message);
-            }
-            
-            // Check if the registration was confirmed successfully
-            if (data.success) {
-                document.getElementById('message').textContent = "Your registration has been confirmed. You can now login.";
-            } else {
-                document.getElementById('message').textContent = "Failed to confirm registration. Please try again.";
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            document.getElementById('message').textContent = "An error occurred. Please try again later.";
-        });
-    </script>
-    </body>
-</html>
+<h1>User Registration</h1>
+<form id="registerForm" hx-post="/register" hx-target="#message">
+    <div>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+    </div>
+    <div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+    </div>
+    <div>
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" required>
+    </div>
+    <div>
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" required>
+    </div>
+    <div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+    </div>
+    <button type="submit">Register</button>
+</form>
+<p>Already have an account ? <a href="/login">Login here</a></p>
+
+<script>
+    fetch('/confirm?token=' + token)
+    .then(response => response.json())
+    .then(data => {
+        if (data.message) {
+            alert(data.message);
+        }
+        if (data.success) {
+            document.getElementById('message').textContent = "Your registration has been confirmed. You can now login.";
+        } else {
+            document.getElementById('message').textContent = "Failed to confirm registration. Please try again.";
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        document.getElementById('message').textContent = "An error occurred. Please try again later.";
+    });
+</script>
+
+{{ end }}
+{{ template "base" . }}

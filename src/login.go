@@ -6,10 +6,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func showLoginPage(c *gin.Context) {
-	c.File("./static/login.html")
-}
-
 // loginHandler handles login form submissions
 func loginHandler(c *gin.Context) {
 	// Parse username and password from request body
