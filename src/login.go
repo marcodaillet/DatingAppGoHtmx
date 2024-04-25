@@ -49,3 +49,11 @@ func loginHandler(c *gin.Context) {
 	// Successful login
 	c.JSON(http.StatusOK, gin.H{"message": "Login successful", "session_token": sessionToken})
 }
+
+func disconnectHandler(c *gin.Context) {
+	// Clear the session token cookie
+	c.SetCookie("session_token", "", -1, "/", "", false, true)
+
+	// Respond with a success message
+	c.JSON(http.StatusOK, gin.H{"message": "Successfully disconnected"})
+}

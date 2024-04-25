@@ -13,6 +13,15 @@ func main() {
 
 	router.Static("/static", "./static/")
 
+	authMiddleware := func(c *gin.Context) {
+		sessionToken, err := c.Cookie("session_token")
+		if err != nil || sessionToken == "" {
+			c.Redirect(http.StatusFound, "/login")
+			return
+		}
+		c.Next()
+	}
+
 	router.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "login.html", gin.H{
 			"Title":        "Login Page",
@@ -34,9 +43,17 @@ func main() {
 		})
 	})
 
+	router.GET("/home", authMiddleware, func(c *gin.Context) {
+		c.HTML(http.StatusOK, "home.html", gin.H{
+			"Title":        "Home Page",
+			"ContentBlock": "home_content",
+		})
+	})
+
 	router.GET("/confirm", confirmationHandler) // Added for confirmation page
 	router.POST("/register", registerHandler)
 	router.POST("/login", loginHandler) // Added for login form submission
+	router.POST("/disconnect", disconnectHandler)
 
 	router.Run(":8080")
 }

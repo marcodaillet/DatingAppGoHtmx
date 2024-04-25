@@ -14,7 +14,9 @@
         {{ if eq .ContentBlock "login_content" }}
             {{ template "login_content" . }}
         {{ else if eq .ContentBlock "register_content" }}
-            {{ template "register_content" . }}
+            {{ template "register_content" . }}        
+        {{ else if eq .ContentBlock "home_content" }}
+            {{ template "home_content" . }}
         {{ else }}
             Default Content
         {{ end }}
